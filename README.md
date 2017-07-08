@@ -23,18 +23,16 @@ docker cp http-proxy:/mp .
  ```
 2. Edit configs
  ```
-$ cat mp/microproxy.json
-{
-    "listen": "0.0.0.0:3128",
-    "access_log": "/dev/stdout",
-    "activity_log": "/dev/stderr",
-    "allowed_connect_ports": [443, 80],
-    "auth_file": "auth.txt",
-    "auth_type": "basic",
-    "forwarded_for_header": "delete",
-    "via_header": "delete",
-    "allowed_networks": ["0.0.0.0/0"]
-}
+$ cat mp/microproxy.toml
+listen="0.0.0.0:3128"
+access_log="/dev/stdout"
+activity_log="/dev/stderr"
+allowed_connect_ports=[443, 80]
+auth_file="auth.txt"
+auth_type="basic"
+forwarded_for_header="delete"
+via_header="delete"
+allowed_networks=["0.0.0.0/0"]
 
 $ cat mp/auth.txt
 microproxy:microproxy
