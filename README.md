@@ -15,7 +15,7 @@ docker run -d --name http-proxy -p 3128:3128 shkrid/docker-microproxy
 
 - Setup login:pass
 ```
-docker run -d --name http-proxy -p 3128:3128 -e MP_USER=login -e MP_PASS=pass shkrid/docker-microproxy
+docker run -d --name http-proxy -p 3128:3128 -e MP_USER=login -e MP_PASS=pass --restart=unless-stopped  shkrid/docker-microproxy
 ```
 
 - Custom config:
@@ -49,5 +49,5 @@ $ docker rm -f http-proxy
 4. Start new container with volume mount 
  
  ```
-docker run -d --name http-proxy -p 3128:3128 -v $PWD/mp:/mp shkrid/docker-microproxy
+docker run -d --name http-proxy -p 3128:3128 -v $PWD/mp:/mp --restart=unless-stopped  shkrid/docker-microproxy
  ```
