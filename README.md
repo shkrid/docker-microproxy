@@ -2,6 +2,10 @@
 Dockerized lightweight non-caching HTTP(S) proxy server
 https://github.com/thekvs/microproxy
 
+[![](https://images.microbadger.com/badges/version/shkrid/docker-microproxy.svg)](https://microbadger.com/images/shkrid/docker-microproxy)
+[![](https://images.microbadger.com/badges/commit/shkrid/docker-microproxy.svg)](https://microbadger.com/images/shkrid/docker-microproxy)
+[![](https://images.microbadger.com/badges/image/shkrid/docker-microproxy.svg)](https://microbadger.com/images/shkrid/docker-microproxy)
+
 ## Usage
 
 - default login:pass - microproxy:microproxy
