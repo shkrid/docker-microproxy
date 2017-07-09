@@ -1,15 +1,17 @@
-FROM alpine
+FROM alpine AS build-env
 
 MAINTAINER Artem Yasinskiy <shkrid@gmail.com>
 
+RUN apk add --no-cache --virtual .build-deps go git libc-dev
+RUN CGO_ENABLED=0 GOOS=linux go get -a -installsuffix cgo -buildmode=exe github.com/thekvs/microproxy
+
+
+#FROM scratch - does not work as tools needed
+FROM busybox
+
 WORKDIR /mp
 
-RUN \
-    apk add --no-cache --virtual .build-deps go git libc-dev && \
-    go get github.com/thekvs/microproxy && \
-    cp $(go env GOPATH)/bin/microproxy /usr/local/bin/ && \
-    rm -rf $(go env GOPATH) && \
-    apk del .build-deps
+COPY --from=build-env /root/go/bin/microproxy /
 
 RUN echo $'listen="0.0.0.0:3128"\n\
 access_log="/dev/stdout"\n\
@@ -27,4 +29,4 @@ EXPOSE 3128
 ENV MP_USER=microproxy \
     MP_PASS=microproxy
 
-CMD [ -f auth.txt ] || echo "$MP_USER:$MP_PASS" > auth.txt && exec microproxy -config microproxy.toml
+CMD [ -f auth.txt ] || echo "$MP_USER:$MP_PASS" > auth.txt && /microproxy -config microproxy.toml
